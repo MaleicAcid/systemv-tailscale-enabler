@@ -50,7 +50,7 @@
 # Description:       cloudflared agent
 ### END INIT INFO
 name=$(basename $(readlink -f $0))
-cmd="/user/bin/tailscale up --accept-dns=false"
+cmd="/user/bin/tailscaled -tun userspace-networking"
 pid_file="/var/run/$name.pid"
 stdout_log="/var/log/$name.log"
 stderr_log="/var/log/$name.err"

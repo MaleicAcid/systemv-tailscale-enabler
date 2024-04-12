@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -14,20 +14,13 @@ if [ ! -f /tmp/tailscaled ]; then
         arch=amd64
     fi
 
-    tailscale_version="1.62.1"
-
-    latest_version=`wget -O- https://pkgs.tailscale.com/stable/ | grep tailscale_ | head -1 | cut -d'_' -f 2`
-    if [ "$tailscale_version" != "$latest_version" ]; then
-        tailscale_version=$latest_version
-    fi
-
+    tailscale_version="1.64.0"
     version="${tailscale_version}_${arch}${endianness}"
 
-    echo "Downloading Tailscale ${version} .."
-
+    echo "Unarchive Tailscale ${version} .."
     echo -e "tailscale_${version}/tailscaled" > /tmp/tailscale_${version}_files.txt
 
-    wget -O- https://pkgs.tailscale.com/stable/tailscale_${version}.tgz | tar x -zvf - -C /tmp -T /tmp/tailscale_${version}_files.txt
+    tar x -zvf ./artifacts/tailscale_${version}.tgz -C /tmp -T /tmp/tailscale_${version}_files.txt
 
     mv /tmp/tailscale_$version/* /tmp
     rm -rf /tmp/tailscale_${version}*

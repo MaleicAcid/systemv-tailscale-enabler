@@ -1,1 +1,2 @@
-tailscale-enabler*.tgz
+*tailscale-enabler*.tgz
+artifacts/*.tgz
